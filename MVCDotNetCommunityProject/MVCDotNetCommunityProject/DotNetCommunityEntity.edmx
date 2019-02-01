@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dotnetcommunitydbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="adminlogin">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="userpwd" Type="varchar" MaxLength="30" />
+          <Property Name="hint" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="articles">
+          <Key>
+            <PropertyRef Name="articleid" />
+          </Key>
+          <Property Name="articleid" Type="int" Nullable="false" />
+          <Property Name="articletype" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="articledesc" Type="varchar(max)" Nullable="false" />
+          <Property Name="posteddate" Type="date" Nullable="false" />
+          <Property Name="loginid" Type="int" />
+        </EntityType>
+        <EntityType Name="forumreply">
+          <Key>
+            <PropertyRef Name="replyid" />
+          </Key>
+          <Property Name="replyid" Type="int" Nullable="false" />
+          <Property Name="reply" Type="varchar(max)" Nullable="false" />
+          <Property Name="questionid" Type="int" />
+          <Property Name="loginid" Type="int" />
+        </EntityType>
+        <EntityType Name="forums">
+          <Key>
+            <PropertyRef Name="questionid" />
+          </Key>
+          <Property Name="questionid" Type="int" Nullable="false" />
+          <Property Name="question" Type="varchar(max)" Nullable="false" />
+          <Property Name="loginid" Type="int" />
+        </EntityType>
+        <EntityType Name="projects">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="int" Nullable="false" />
+          <Property Name="projecttype" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="filename" Type="varchar(max)" Nullable="false" />
+          <Property Name="filetype" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="loginid" Type="int" />
+        </EntityType>
+        <EntityType Name="userlogin">
+          <Key>
+            <PropertyRef Name="loginid" />
+          </Key>
+          <Property Name="loginid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="secquestion" Type="varchar(max)" Nullable="false" />
+          <Property Name="answer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__articles__logini__1B0907CE">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="articles" Type="Self.articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="articles">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forumrepl__login__182C9B23">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="forumreply" Type="Self.forumreply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="forumreply">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forumrepl__quest__173876EA">
+          <End Role="forums" Type="Self.forums" Multiplicity="0..1" />
+          <End Role="forumreply" Type="Self.forumreply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="forums">
+              <PropertyRef Name="questionid" />
+            </Principal>
+            <Dependent Role="forumreply">
+              <PropertyRef Name="questionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forums__loginid__145C0A3F">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="forums" Type="Self.forums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="forums">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__projects__logini__1DE57479">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="projects" Type="Self.projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="projects">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dotnetcommunitydbModelStoreContainer">
+          <EntitySet Name="adminlogin" EntityType="Self.adminlogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="articles" EntityType="Self.articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="forumreply" EntityType="Self.forumreply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="forums" EntityType="Self.forums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="projects" EntityType="Self.projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userlogin" EntityType="Self.userlogin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__articles__logini__1B0907CE" Association="Self.FK__articles__logini__1B0907CE">
+            <End Role="userlogin" EntitySet="userlogin" />
+            <End Role="articles" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forumrepl__login__182C9B23" Association="Self.FK__forumrepl__login__182C9B23">
+            <End Role="userlogin" EntitySet="userlogin" />
+            <End Role="forumreply" EntitySet="forumreply" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forumrepl__quest__173876EA" Association="Self.FK__forumrepl__quest__173876EA">
+            <End Role="forums" EntitySet="forums" />
+            <End Role="forumreply" EntitySet="forumreply" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forums__loginid__145C0A3F" Association="Self.FK__forums__loginid__145C0A3F">
+            <End Role="userlogin" EntitySet="userlogin" />
+            <End Role="forums" EntitySet="forums" />
+          </AssociationSet>
+          <AssociationSet Name="FK__projects__logini__1DE57479" Association="Self.FK__projects__logini__1DE57479">
+            <End Role="userlogin" EntitySet="userlogin" />
+            <End Role="projects" EntitySet="projects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dotnetcommunitydbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="adminlogin">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userpwd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="hint" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="articleid" />
+          </Key>
+          <Property Name="articleid" Type="Int32" Nullable="false" />
+          <Property Name="articletype" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="articledesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="posteddate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="loginid" Type="Int32" />
+          <NavigationProperty Name="userlogin" Relationship="Self.FK__articles__logini__1B0907CE" FromRole="articles" ToRole="userlogin" />
+        </EntityType>
+        <EntityType Name="forumreply">
+          <Key>
+            <PropertyRef Name="replyid" />
+          </Key>
+          <Property Name="replyid" Type="Int32" Nullable="false" />
+          <Property Name="reply" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="questionid" Type="Int32" />
+          <Property Name="loginid" Type="Int32" />
+          <NavigationProperty Name="userlogin" Relationship="Self.FK__forumrepl__login__182C9B23" FromRole="forumreply" ToRole="userlogin" />
+          <NavigationProperty Name="forum" Relationship="Self.FK__forumrepl__quest__173876EA" FromRole="forumreply" ToRole="forums" />
+        </EntityType>
+        <EntityType Name="forum">
+          <Key>
+            <PropertyRef Name="questionid" />
+          </Key>
+          <Property Name="questionid" Type="Int32" Nullable="false" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loginid" Type="Int32" />
+          <NavigationProperty Name="forumreplies" Relationship="Self.FK__forumrepl__quest__173876EA" FromRole="forums" ToRole="forumreply" />
+          <NavigationProperty Name="userlogin" Relationship="Self.FK__forums__loginid__145C0A3F" FromRole="forums" ToRole="userlogin" />
+        </EntityType>
+        <EntityType Name="project">
+          <Key>
+            <PropertyRef Name="projectid" />
+          </Key>
+          <Property Name="projectid" Type="Int32" Nullable="false" />
+          <Property Name="projecttype" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="filename" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="filetype" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loginid" Type="Int32" />
+          <NavigationProperty Name="userlogin" Relationship="Self.FK__projects__logini__1DE57479" FromRole="projects" ToRole="userlogin" />
+        </EntityType>
+        <EntityType Name="userlogin">
+          <Key>
+            <PropertyRef Name="loginid" />
+          </Key>
+          <Property Name="loginid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secquestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="answer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="articles" Relationship="Self.FK__articles__logini__1B0907CE" FromRole="userlogin" ToRole="articles" />
+          <NavigationProperty Name="forumreplies" Relationship="Self.FK__forumrepl__login__182C9B23" FromRole="userlogin" ToRole="forumreply" />
+          <NavigationProperty Name="forums" Relationship="Self.FK__forums__loginid__145C0A3F" FromRole="userlogin" ToRole="forums" />
+          <NavigationProperty Name="projects" Relationship="Self.FK__projects__logini__1DE57479" FromRole="userlogin" ToRole="projects" />
+        </EntityType>
+        <Association Name="FK__articles__logini__1B0907CE">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="articles" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="articles">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forumrepl__login__182C9B23">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="forumreply" Type="Self.forumreply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="forumreply">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forumrepl__quest__173876EA">
+          <End Role="forums" Type="Self.forum" Multiplicity="0..1" />
+          <End Role="forumreply" Type="Self.forumreply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="forums">
+              <PropertyRef Name="questionid" />
+            </Principal>
+            <Dependent Role="forumreply">
+              <PropertyRef Name="questionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__forums__loginid__145C0A3F">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="forums" Type="Self.forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="forums">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__projects__logini__1DE57479">
+          <End Role="userlogin" Type="Self.userlogin" Multiplicity="0..1" />
+          <End Role="projects" Type="Self.project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userlogin">
+              <PropertyRef Name="loginid" />
+            </Principal>
+            <Dependent Role="projects">
+              <PropertyRef Name="loginid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dotnetcommunitydbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adminlogins" EntityType="Self.adminlogin" />
+          <EntitySet Name="articles" EntityType="Self.article" />
+          <EntitySet Name="forumreplies" EntityType="Self.forumreply" />
+          <EntitySet Name="forums" EntityType="Self.forum" />
+          <EntitySet Name="projects" EntityType="Self.project" />
+          <EntitySet Name="userlogins" EntityType="Self.userlogin" />
+          <AssociationSet Name="FK__articles__logini__1B0907CE" Association="Self.FK__articles__logini__1B0907CE">
+            <End Role="userlogin" EntitySet="userlogins" />
+            <End Role="articles" EntitySet="articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forumrepl__login__182C9B23" Association="Self.FK__forumrepl__login__182C9B23">
+            <End Role="userlogin" EntitySet="userlogins" />
+            <End Role="forumreply" EntitySet="forumreplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forumrepl__quest__173876EA" Association="Self.FK__forumrepl__quest__173876EA">
+            <End Role="forums" EntitySet="forums" />
+            <End Role="forumreply" EntitySet="forumreplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__forums__loginid__145C0A3F" Association="Self.FK__forums__loginid__145C0A3F">
+            <End Role="userlogin" EntitySet="userlogins" />
+            <End Role="forums" EntitySet="forums" />
+          </AssociationSet>
+          <AssociationSet Name="FK__projects__logini__1DE57479" Association="Self.FK__projects__logini__1DE57479">
+            <End Role="userlogin" EntitySet="userlogins" />
+            <End Role="projects" EntitySet="projects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dotnetcommunitydbModelStoreContainer" CdmEntityContainer="dotnetcommunitydbEntities">
+          <EntitySetMapping Name="adminlogins">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.adminlogin">
+              <MappingFragment StoreEntitySet="adminlogin">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="userpwd" ColumnName="userpwd" />
+                <ScalarProperty Name="hint" ColumnName="hint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="articles">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.article">
+              <MappingFragment StoreEntitySet="articles">
+                <ScalarProperty Name="articleid" ColumnName="articleid" />
+                <ScalarProperty Name="articletype" ColumnName="articletype" />
+                <ScalarProperty Name="articledesc" ColumnName="articledesc" />
+                <ScalarProperty Name="posteddate" ColumnName="posteddate" />
+                <ScalarProperty Name="loginid" ColumnName="loginid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="forumreplies">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.forumreply">
+              <MappingFragment StoreEntitySet="forumreply">
+                <ScalarProperty Name="replyid" ColumnName="replyid" />
+                <ScalarProperty Name="reply" ColumnName="reply" />
+                <ScalarProperty Name="questionid" ColumnName="questionid" />
+                <ScalarProperty Name="loginid" ColumnName="loginid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="forums">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.forum">
+              <MappingFragment StoreEntitySet="forums">
+                <ScalarProperty Name="questionid" ColumnName="questionid" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="loginid" ColumnName="loginid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projects">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.project">
+              <MappingFragment StoreEntitySet="projects">
+                <ScalarProperty Name="projectid" ColumnName="projectid" />
+                <ScalarProperty Name="projecttype" ColumnName="projecttype" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="filetype" ColumnName="filetype" />
+                <ScalarProperty Name="loginid" ColumnName="loginid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userlogins">
+            <EntityTypeMapping TypeName="dotnetcommunitydbModel.userlogin">
+              <MappingFragment StoreEntitySet="userlogin">
+                <ScalarProperty Name="loginid" ColumnName="loginid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="secquestion" ColumnName="secquestion" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

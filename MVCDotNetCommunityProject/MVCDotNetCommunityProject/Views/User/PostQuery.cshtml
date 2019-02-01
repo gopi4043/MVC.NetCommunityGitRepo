@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "PostQuery";
+    Layout = "~/Views/Shared/_MasterUserHome.cshtml";
+}
+
+<form name="PQform" method="post">
+    <div style="position:relative;top:150px;left:275px">
+        Query No: @Html.TextBox("txtQueryId")
+        <br/><br/>
+        Enter Query: @Html.TextArea("txtQuery")
+        <br/><br/>
+        <input type="submit" name="btnPostQuery" value="Post Query" formaction="~/User/PostQuery"></div>
+</form>

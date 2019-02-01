@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "AdminHome";
+    Layout = "~/Views/Shared/_MasterAdminHome.cshtml";
+}
+
+<div style="position:relative;width:125px;top:-33px;left:875px">
+    @Html.ActionLink("Change Password", "AdminChangePassword", "Admin", null, new {style = "text-decoration:none;color:white;" })
+</div>
+<div style="position:relative;text-align:center;top:150px">
+    <h1>@Html.Label("lblAdminWelcome", ViewData["lblAdminWelcome"].ToString(), new { style = "font-family:Microsoft New Tai Lue; color:saddlebrown" })</h1>
+</div>

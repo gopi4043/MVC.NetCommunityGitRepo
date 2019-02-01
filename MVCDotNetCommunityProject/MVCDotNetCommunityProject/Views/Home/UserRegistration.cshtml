@@ -1,0 +1,78 @@
+﻿@model MVCDotNetCommunityProject.userlogin
+@{
+    ViewBag.Title = "UserRegistration";
+    Layout = "~/Views/Shared/_MasterAllUsers.cshtml";
+}
+
+<form name="userreg" method="post">
+<div style="position:relative;top:120px;left:220px">
+    <table>
+        <tr>
+            <td>
+                Login ID
+            </td>
+            <td>
+                @Html.TextBox("txtLoginId",null, new { style = "width:206px", @readonly = "readonly" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Enter Name
+            </td>
+            <td>
+                @Html.TextBoxFor(nam => nam.name, new { id = "txtName", style = "width:206px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Enter UserName
+            </td>
+            <td>
+                @Html.TextBoxFor(uname => uname.username, new { id = "txtUname", style = "width:206px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Enter Password
+            </td>
+            <td>
+                @Html.PasswordFor(pwd => pwd.password, new { id = "txtPwd", style = "width:206px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Re-Enter Password
+            </td>
+            <td>
+                @Html.PasswordFor(rpwd => rpwd.password, new { id = "txtRPwd", style = "width:206px" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Select Security Question
+            </td>
+            <td>
+                @Html.DropDownListFor(secque => secque.secquestion, new SelectList(new List<string>{
+               "What is your Nickname?",
+               "What is your best friend name?",
+               "What is your first school name?",
+               "What is your favourite food?",
+               "What is favourite timepass?"
+           }), "-select-", new { id = "DropSecQueList" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Enter Answer
+            </td>
+            <td>
+                @Html.TextBoxFor(ans => ans.answer, new { id = "txtAnswer", style = "width:206px" })
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <input type="submit" name="btnRegister" value="Register" style="position:relative;left:135px" />
+    <br/><br/>
+    @Html.Label("lblRegMsg", ViewData["regmsg"].ToString(), new { style = ViewData["regmsgstyle"].ToString() })
+</div>
+</form>

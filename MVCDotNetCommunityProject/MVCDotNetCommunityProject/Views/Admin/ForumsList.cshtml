@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "ForumsList";
+    Layout = "~/Views/Shared/_MasterAdminHome.cshtml";
+}
+
+<div style="position:relative;text-align:center;top:150px;left:230px">
+    <table border="1">
+        <tr>
+            <th>Forum ID</th>
+            <th>Forum</th>
+            <th>UserName</th>
+            <th>Delete</th>
+        </tr>
+        @foreach(var item in ViewBag.forums)
+        {
+            <tr>
+                <td>@item.QuestionId </td>
+                <td>@item.Question</td>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink("Delete", "DeleteForums", "Admin", new { fid = item.QuestionId }, new {style="text-decoration:none;color:red" })</td>
+            </tr>
+        }
+    </table>
+
+</div>

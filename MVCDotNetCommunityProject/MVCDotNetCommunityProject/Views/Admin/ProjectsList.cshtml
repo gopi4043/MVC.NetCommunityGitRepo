@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "ProjectsList";
+    Layout = "~/Views/Shared/_MasterAdminHome.cshtml";
+}
+
+
+<div style="text-align:center;position:relative;top:150px;left:175px">
+    <table border="1">
+        <tr>
+            <td>Project ID</td>
+            <td>Project Type</td>
+            <td>Project Name</td>
+            <td>File Type</td>
+            <td>UserName</td>
+            <td>Download</td>
+            <td>Delete</td>
+        </tr>
+        @foreach (var item in ViewBag.projects)
+        {
+            <tr>
+                <td>@item.ProjectId</td>
+                <td>@item.ProjectType</td>
+                <td>@item.ProjectName</td>
+                <td>@item.FileType</td>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink("Download", "DownloadProject", "Admin", new {pid=item.ProjectId }, new {style="text-decoration:none;color:red" })</td>
+                <td>@Html.ActionLink("Delete", "DeleteProject", "Admin", new {pid=item.ProjectId }, new { style = "text-decoration:none;color:red" })</td>
+            </tr>
+        }
+    </table>
+</div>

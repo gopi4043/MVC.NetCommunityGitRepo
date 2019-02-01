@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "UserLogin";
+    Layout = "~/Views/Shared/_MasterAllUsers.cshtml";
+  }
+
+<form name="userlogin" method="post">
+    <div style="position:relative;text-align:center;top:115px">
+        <h1>User Login</h1>
+        Enter Username @Html.TextBox("txtUName")
+        <br /><br />
+        Enter Password @Html.Password("txtUPwd")
+        <br /><br />
+        <input type="submit" name="btnUserLogin" value="Login" formaction="~/User/UserLogin" />
+        @Html.ActionLink("Forgot Password", "UserForgotPassword", "Home", null, new { style = "color:saddlebrown" })
+        <br /><br />
+        @Html.Label("lblUloginMsg", ViewData["lblUloginMsg"].ToString(), new { style = "color:red" })
+    </div>
+</form>

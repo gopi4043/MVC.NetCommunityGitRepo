@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header style="position:relative;width: 916px; top: -117px; left: 429px;">
+        <p style="font-family:Microsoft New Tai Lue;font-size:125px; width: 907px; color:saddlebrown">.Net Community</p>
+    </header>
+    <nav style="position:relative; top: -250px; left: 5px; width: 1349px;">
+        <table>
+            <tr>
+                <td width="100px">@Html.ActionLink("Home", "Home", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+                <td width="100px">@Html.ActionLink("Login", "UserLogin", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+                <td width="100px">@Html.ActionLink("AboutUs", "Home", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+                <td width="100px">@Html.ActionLink("ContactUs", "Home", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+                <td width="1600px">@Html.ActionLink("Register", "UserRegistration", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+                <td width="150px">@Html.ActionLink("Admin Login", "AdminLogin", "Home", null, new { style = "text-decoration:none;color:white;" })</td>
+            </tr>
+        </table>
+    </nav>
+    <div style="height:590px;margin-top:-430px">
+        <div>
+            <img src="PImages/BgNoName.png" />
+        </div>
+        <div style="position:relative;top:-452px; left: 245px; height: 403px; width: 863px;">
+            @RenderBody()
+        </div>
+    </div>
+    <footer style="position:relative; top: -2px; left: 507px; width: 364px;">
+        <p style="font-family:Microsoft New Tai Lue;color:saddlebrown">Copyright ® Reserved@2019 by .Net Community™</p>
+    </footer>
+</body>
+</html>

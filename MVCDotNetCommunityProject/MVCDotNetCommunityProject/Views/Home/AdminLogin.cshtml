@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "AdminLogin";
+    Layout = "~/Views/Shared/_MasterAllUsers.cshtml";
+}
+
+
+<form name="adminlogin" method="post">
+<div style="position:relative;text-align:center;top:115px">
+    <h1>Admin Login</h1>
+    Enter Username @Html.TextBox("txtAName")
+    <br/><br/>
+    Enter Password @Html.Password("txtAPwd")
+    <br /><br />
+    <input type="submit" name="btnAdminLogin" value="Login" formaction="~/Admin/AdminLogin" />
+    @Html.ActionLink("Forgot Password", "AdminForgotPassword", "Home", null, new { style = "color:saddlebrown" })
+    <br/><br/>
+    @Html.Label("lblAloginMsg", ViewData["lblAloginMsg"].ToString(), new { style = "color:red" })
+</div>
+</form>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "ArticlesList";
+    Layout = "~/Views/Shared/_MasterAdminHome.cshtml";
+}
+
+<div style="position:relative;text-align:center;top:150px;left:175px">
+    <table border="1" style="text-align:center">
+        <tr>
+            <th>Article ID</th>
+            <th>Article Type</th>
+            <th>Article Desc</th>
+            <th>Article PostedDate</th>
+            <th>Article UserName</th>
+            <th>Article Delete</th>
+        </tr>
+        @foreach(var item in ViewBag.articles)
+        {
+            string date = item.Date.ToShortDateString();
+            <tr>
+                <td>@item.ArticleId</td>
+                <td>@item.ArticleType</td>
+                <td>@item.ArticleDesc</td>
+                <td>@date</td>
+                <td>@item.Name</td>
+                <td>@Html.ActionLink("Delete", "DeleteArticle", "Admin", new { aid = item.ArticleId }, new { style="text-decoration:none;color:red" })</td>
+            </tr>
+        }
+    </table>
+</div>

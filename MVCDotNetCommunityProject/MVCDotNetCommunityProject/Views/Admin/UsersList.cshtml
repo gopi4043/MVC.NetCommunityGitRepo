@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "UsersList";
+    Layout = "~/Views/Shared/_MasterAdminHome.cshtml";
+}
+
+<form method="post" name="userslist" >
+    <div style="position:relative;text-align:center;top:150px;left:175px">
+        <table border="1" >
+            <tr>
+                <th>Login ID</th>
+                <th>Name</th>
+                <th>UserName</th>
+                <th>Secret Question</th>
+                <th>Answer</th>
+                <th>Status</th>
+            </tr>
+            @foreach (var item in ViewBag.users)
+            {
+                <tr>
+                    <td>@item.loginid</td>
+                    <td>@item.name</td>
+                    <td>@item.username</td>
+                    <td>@item.secquestion</td>
+                    <td>@item.answer</td>
+                    <td>
+                @{
+                if (item.status == "not active")
+                {
+                    @Html.ActionLink("Approve", "UserStatusChange", "Admin", new { lid = item.loginid, status = item.status }, new { style = "text-decoration:none;color:red;" })
+                }
+                if (item.status == "active")
+                {
+                    @Html.ActionLink("Block", "UserStatusChange", "Admin", new { lid = item.loginid, status = item.status }, new { style = "text-decoration:none;color:red;" })
+                }
+                if (item.status == "blocked")
+                {
+                    @Html.ActionLink("Unblock", "UserStatusChange", "Admin", new { lid = item.loginid, status = item.status }, new { style = "text-decoration:none;color:red;" })
+                }
+                }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    </form>
