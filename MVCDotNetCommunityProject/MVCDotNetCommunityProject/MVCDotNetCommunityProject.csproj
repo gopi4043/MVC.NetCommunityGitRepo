@@ -305,6 +305,7 @@
     <Content Include="Views\User\ViewAllArticles.cshtml" />
     <Content Include="Views\User\UploadProject.cshtml" />
     <Content Include="Views\User\DownloadProject.cshtml" />
+    <Content Include="Views\User\ReplyQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

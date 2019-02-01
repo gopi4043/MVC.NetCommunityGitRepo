@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "ReplyQuery";
+    Layout = "~/Views/Shared/_MasterUserHome.cshtml";
+}
+
+<form name="replyform" method="post">
+    <div style="position:relative;top:150px;text-align:center">
+        Selected Query @Html.Label("SelectedQuery", ViewData["SelectedQuery"].ToString(), new {style="color:gray" })
+        <br/><br/>
+        Enter ur Reply @Html.TextArea("txtQReply")
+        <br/><br/>
+        <input type="submit" name="btnReply" value="Reply" formaction="~/User/ReplyQuery" />
+    </div>
+</form>

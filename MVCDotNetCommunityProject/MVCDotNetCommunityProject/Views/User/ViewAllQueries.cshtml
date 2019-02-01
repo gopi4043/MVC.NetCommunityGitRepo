@@ -2,5 +2,46 @@
     ViewBag.Title = "ViewAllQueries";
     Layout = "~/Views/Shared/_MasterUserHome.cshtml";
 }
+@{
+    string msg = "";
+    string msgstyle = "";
+    if (this.IsPost)
+    {
+        if (Request["btnReply"] == "Reply")
+        {
+            int i = (int)ViewData["replyvalue"];
+            if(i==1)
+            {
+                msg = "Reply Posted Successfully";
+                msgstyle = "color:green";
+            }
+            else
+            {
+                msg = "Reply not Posted";
+                msgstyle = "color:red"; 
+            }
+        }
+    }
+}
 
-<h2>ViewAllQueries</h2>
+
+<form name="allqueyform" method="post">
+    <div style="position:relative;top:150px;text-align:center">
+        <table border="1" style="position:relative; left:250px" >
+            <tr>
+                <th>Select</th>
+                <th>Forum</th>
+                <th>Posted by</th>
+            </tr>
+            @foreach(var item in ViewBag.forums)
+            {
+                <tr>
+                    <td>@Html.ActionLink("Select", "ReplyQuery", "User", new { qid = item.QuestionId }, new { style = "text-decoration:none;color:red" })</td>
+                    <td>@item.Question</td>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </table>
+        @Html.Label("lblReplyMsg", msg, new { style = msgstyle })
+    </div>
+</form>

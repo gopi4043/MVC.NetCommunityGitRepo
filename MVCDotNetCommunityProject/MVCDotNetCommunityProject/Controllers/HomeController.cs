@@ -9,6 +9,8 @@ namespace MVCDotNetCommunityProject.Controllers
 {
     public class HomeController : Controller
     {
+        dotnetcommunitydbEntities objdb = new dotnetcommunitydbEntities();
+
         AdminModel objadminmodel = new AdminModel();
 
         UserModel objusermodel = new UserModel();
@@ -53,7 +55,7 @@ namespace MVCDotNetCommunityProject.Controllers
         {
             ViewData["regmsg"] = "";
             ViewData["regmsgstyle"] = "";
-            ViewBag.txtLoginId = objusermodel.GetLastLoginId() + 1;
+            ViewData["txtLoginId"] = Convert.ToInt32(objdb.userlogins.Max(u => u.loginid)) + 1;
             return View();
         }
 
@@ -74,7 +76,7 @@ namespace MVCDotNetCommunityProject.Controllers
                 ViewData["regmsg"] = "Username already used";
                 ViewData["regmsgstyle"] = "position:relative;left:110px;color:red";
             }
-            ViewBag.txtLoginId = objusermodel.GetLastLoginId() + 1;
+            ViewData["txtLoginId"] = objdb.userlogins.Select(u => u.loginid).DefaultIfEmpty(0).Max()+1;
             return View();
         }
 

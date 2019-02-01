@@ -30,13 +30,6 @@ namespace MVCDotNetCommunityProject.Models
             return objusercheck.name;
         }
 
-        //
-        public int? GetLastLoginId()
-        {
-            var lastloginid = objdb.userlogins.Max(l => (int?)l.loginid);
-            return lastloginid;
-        }
-
         //Task-2: User Registration
         public int UserRegistration(userlogin objuser)
         {
@@ -89,6 +82,7 @@ namespace MVCDotNetCommunityProject.Models
                         join f in objdb.forums on u.loginid equals f.loginid
                         select new PropertiesModel
                         {
+                            QuestionId=f.questionid,
                             Question = f.question,
                             Name = u.name
                         };

@@ -9,6 +9,7 @@ namespace MVCDotNetCommunityProject.Controllers
 {
     public class UserController : Controller
     {
+        dotnetcommunitydbEntities objdb = new dotnetcommunitydbEntities();
         UserModel objusermodel = new UserModel();
         public ActionResult UserHome()
         {
@@ -38,18 +39,46 @@ namespace MVCDotNetCommunityProject.Controllers
         {
             if (Request["btnPostQuery"] == "Post Query")
             {
-
+                forum objforum = new forum();
+                objforum.questionid=int.Parse(Request["txtQueryId"]);
+                objforum.question=Request["txtQuery"];
+                objforum.loginid=(int)Session["loginid"];
+                ViewData["PostQueryValue"] = objusermodel.PostQuery(objforum);
             }
+            ViewData["txtQueryId"] = objdb.forums.Select(f => f.questionid).DefaultIfEmpty(0).Max() +1;
             return View();
         }
 
         public ActionResult ViewAllQueries()
         {
+            ViewBag.forums = objusermodel.GetQueries();
             return View();
+        }
+        public ActionResult ReplyQuery()
+        {
+            if (Request["btnReply"] == "Reply")
+            {
+                forumreply objfreply = new forumreply();
+                objfreply.replyid = objdb.forumreplies.Select(r => r.replyid).DefaultIfEmpty(0).Max() + 1;
+                objfreply.reply = Request["txtQReply"];
+                objfreply.questionid =Convert.ToInt32(TempData["questionid"]);
+                objfreply.loginid = (int)Session["loginid"];
+                ViewData["replyvalue"] = objusermodel.ReplyQuery(objfreply);
+                ViewBag.forums = objusermodel.GetQueries();
+                return View("~/Views/User/ViewAllQueries.cshtml");
+            }
+            else
+            {
+                forum objforum = objdb.forums.Find(int.Parse(Request.QueryString["qid"]));
+                ViewData["SelectedQuery"] = objforum.question;
+                TempData["questionid"] = Request.QueryString["qid"];
+                return View();
+            }
         }
 
         public ActionResult ViewAllAnsweredQueries()
         {
+            ViewBag.AnsweredQueries = objusermodel.GetAllAnsweredQuestions();
             return View();
         }
 

@@ -1,13 +1,32 @@
 ﻿@{
     ViewBag.Title = "PostQuery";
     Layout = "~/Views/Shared/_MasterUserHome.cshtml";
+    string msg = "";
+    string msgstyle = "";
+    if(this.IsPost)
+    { 
+    int i = (int)ViewData["PostQueryValue"];
+    if(i==1)
+    {
+        msg = "Query Posted";
+        msgstyle = "color:green";
+    }
+    else
+    {
+        msg = "Query not Posted";
+        msgstyle = "color:red";
+    }
+    }
 }
 
 <form name="PQform" method="post">
     <div style="position:relative;top:150px;left:275px">
-        Query No: @Html.TextBox("txtQueryId")
+        Query No: @Html.TextBox("txtQueryId", null, new { @readonly = "readonly" })
         <br/><br/>
         Enter Query: @Html.TextArea("txtQuery")
         <br/><br/>
-        <input type="submit" name="btnPostQuery" value="Post Query" formaction="~/User/PostQuery"></div>
+        <input type="submit" name="btnPostQuery" value="Post Query" formaction="~/User/PostQuery">
+        <br /><br/>
+        @Html.Label("lblMsg",msg, new {style=msgstyle })
+    </div>
 </form>

@@ -3,4 +3,21 @@
     Layout = "~/Views/Shared/_MasterUserHome.cshtml";
 }
 
-<h2>ViewAllAnsweredQueries</h2>
+<div style="position:relative;top:150px;left:175px;text-align:center">
+    <table border="1">
+        <tr>
+            <th>Query</th>
+            <th>Reply</th>
+            <th>Posted by</th>
+        </tr>
+        @foreach (var item in ViewBag.AnsweredQueries)
+        {
+            <tr>
+                <td>@item.Question</td>
+                <td>@item.Reply</td>
+                <td>@item.Name</td>
+            </tr>
+        }
+    </table>
+</div>
+
