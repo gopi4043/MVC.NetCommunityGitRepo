@@ -16,7 +16,6 @@ namespace MVCDotNetCommunityProject.Controllers
         UserModel objusermodel = new UserModel();
         public ActionResult Home()
         {
-            //lllllll
             return View();
         }
 
